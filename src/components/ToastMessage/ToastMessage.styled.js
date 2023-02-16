@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const ToastMessage = styled(ToastContainer)`
   &&&.Toastify__toast-container {
-    margin-top: 70px;
+    margin-top: 68px;
     width: 530px;
     text-align: center;
   }

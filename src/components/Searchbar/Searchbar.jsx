@@ -1,5 +1,5 @@
 import { Component } from 'react';
-// import { BiSearchAlt } from 'react-icons/bi';
+import PropTypes from 'prop-types';
 import {
   Searchbar,
   SearchForm,
@@ -24,7 +24,9 @@ export class Form extends Component {
     const value = this.state.value.trim().toLowerCase();
     if (!value) return;
 
-    this.props.submit(value);
+    let sameValue;
+    if (this.props.prevValue === value) sameValue = true;
+    this.props.submit(value, sameValue);
     this.setState({ value: '' });
   };
 
@@ -48,3 +50,8 @@ export class Form extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  submit: PropTypes.func,
+  prevValue: PropTypes.string,
+};

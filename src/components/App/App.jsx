@@ -38,6 +38,7 @@ export class App extends Component {
     try {
       const { value, page, images } = this.state;
       this.setState({ isLoading: true });
+
       const data = await getImages(value, page);
 
       const { hits, total } = data;
@@ -61,11 +62,16 @@ export class App extends Component {
     }
   };
 
-  getValue = value => {
-    this.setState({
-      value,
-      page: 1,
-    });
+  getValue = (value, sameValue) => {
+    sameValue
+      ? toast(
+          `🤷‍♀️ Hey, you already have '${value}' shown, find something new!`,
+          messageSettings
+        )
+      : this.setState({
+          value,
+          page: 1,
+        });
   };
 
   handleChangePage = () => {
@@ -83,7 +89,7 @@ export class App extends Component {
     const limit = total > page * 12;
     return (
       <>
-        <Form submit={this.getValue} />
+        <Form submit={this.getValue} prevValue={this.state.value} />
         <ImageGallery photos={images} openModal={this.toggleModal} />
         {images.length > 0 && limit && (
           <Btn

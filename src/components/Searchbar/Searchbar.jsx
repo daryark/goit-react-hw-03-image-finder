@@ -3,8 +3,7 @@ import {
   Searchbar,
   SearchForm,
   SearchFormBtn,
-  // SearchFormInput,
-  // SearchFormLabel,
+  SearchFormInput,
 } from './Searchbar.styled';
 
 export class Form extends Component {
@@ -30,15 +29,11 @@ export class Form extends Component {
   render() {
     return (
       <Searchbar>
-        {/* <form onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleChange} />
-        </form> */}
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchFormBtn type="submit">
             <span>Search</span>
           </SearchFormBtn>
-
-          <input
+          <SearchFormInput
             onChange={this.handleChange}
             type="text"
             autoComplete="off"
@@ -46,21 +41,6 @@ export class Form extends Component {
             placeholder="Search images and photos"
           />
         </SearchForm>
-        {/* <SearchForm onSubmit={this.handleSubmit}>
-          <SearchFormBtn>
-            <span class="button-label">Search</span>
-          </SearchFormBtn>
-          <SearchFormLabel>
-            <SearchFormInput
-            value= {this.state.value}
-              type="text"
-              autoComplete="off"
-              autoFocus
-              placeholder="Search images and photos"
-              onChange={this.handleChange}
-            />
-          </SearchFormLabel>
-        </SearchForm> */}
       </Searchbar>
     );
   }

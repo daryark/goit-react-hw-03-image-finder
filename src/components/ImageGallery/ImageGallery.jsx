@@ -1,19 +1,17 @@
-import { Component } from 'react';
-
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem.styled';
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Gallery } from './ImageGallery.styled';
 
-export const ImageGallery = () => {
+export const ImageGallery = ({ photos }) => {
   return (
-    // const { id, webformatURL, largeImageURL } = this.props.photos;
-    // console.log(photos);
-    <>
-      <Gallery>
-        <ImageGalleryItem>hii</ImageGalleryItem>
-        {/* {photos.map(photo => (
-            <ImageGalleryItem>{photo}</ImageGalleryItem>
-          ))} */}
-      </Gallery>
-    </>
+    <Gallery>
+      {photos.map(({ id, webformatURL, largeImageURL, tags }) => (
+        <ImageGalleryItem
+          key={id}
+          img={webformatURL}
+          tag={tags}
+          bigImg={largeImageURL}
+        />
+      ))}
+    </Gallery>
   );
 };

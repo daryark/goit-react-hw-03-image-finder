@@ -3,6 +3,8 @@ import { getImages } from 'components/service/image-service';
 
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Form } from 'components/Searchbar/Searchbar';
+import { Btn } from 'components/Button/Button';
+import { Loader } from 'components/Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -10,39 +12,68 @@ export class App extends Component {
     images: [],
     page: 1,
     total: 0,
-    // id: '',
-    // webformatURL: '',
-    // largeImageURL: '',
+    error: null,
+    isLoading: false,
   };
 
+  componentDidUpdate(_, prevState) {
+    if (
+      prevState.value !== this.state.value ||
+      prevState.page !== this.state.page
+    ) {
+      this.getImages();
+    }
+  }
+
   getImages = async () => {
-    const { value, page } = this.state;
-    const data = await getImages(value, page);
-    const hits = data.hits;
-    const total = data.total;
-    this.setState({
-      images: hits,
-      total,
-    });
+    try {
+      const { value, page, images } = this.state;
+      this.setState({ isLoading: true });
+      const data = await getImages(value, page);
+
+      const { hits, total } = data;
+
+      this.setState({
+        images: page === 1 ? hits : [...images, ...hits],
+        total,
+      });
+    } catch (error) {
+      this.setState({
+        error: error.message,
+      });
+    } finally {
+      this.setState({
+        isLoading: false,
+      });
+    }
   };
 
   getValue = value => {
     this.setState({
       value,
+      page: 1,
     });
   };
-  componentDidMount() {}
 
-  componentDidUpdate() {
-    this.getImages();
-  }
+  handleChangePage = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
 
   render() {
+    const { total, page, images, error, isLoading } = this.state;
+    const limit = total > page * 12;
     return (
       <>
-        <p> hello</p>
         <Form submit={this.getValue} />
-        <ImageGallery photos={this.state.images} />
+        {error !== null && <p>{error}</p>}
+        {isLoading && <Loader />}
+        <ImageGallery photos={images} />
+        {images.length > 0 && limit && (
+          <Btn text="Load more" btnClick={this.handleChangePage} />
+        )}
+
         {/* <Modal /> */}
       </>
     );

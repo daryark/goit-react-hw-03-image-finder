@@ -31,7 +31,7 @@ export const SearchForm = styled.form`
 
 export const SearchFormBtn = styled.button`
   display: inline-block;
-  width: 48px;
+  /* width: 48px; */
   height: 48px;
   border: 0;
   background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
@@ -47,17 +47,6 @@ export const SearchFormBtn = styled.button`
     opacity: 1;
   }
 `;
-export const SearchFormLabel = styled.label`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
-  border: 0;
-`;
 
 export const SearchFormInput = styled.input`
   display: inline-block;
@@ -66,7 +55,7 @@ export const SearchFormInput = styled.input`
   font-size: 20px;
   border: none;
   outline: none;
-  padding-left: 4px;
+  padding-left: 10px;
   padding-right: 4px;
 
   &::placeholder {

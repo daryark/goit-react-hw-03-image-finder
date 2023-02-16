@@ -31,7 +31,9 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchFormBtn = styled.button`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 48px;
   height: 48px;
   border: 0;
@@ -64,10 +66,9 @@ export const SearchFormInput = styled.input`
     font-size: 18px;
   }
 `;
+
 export const SearchIcon = styled(BiSearchAlt)`
-  &[style] {
-    display: block;
-    width: 2em;
-    height: 2em;
-  }
+  display: block;
+  width: 2em;
+  height: 2em;
 `;

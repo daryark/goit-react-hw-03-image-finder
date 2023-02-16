@@ -1,7 +1,7 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Gallery } from './ImageGallery.styled';
 
-export const ImageGallery = ({ photos }) => {
+export const ImageGallery = ({ photos, openModal }) => {
   return (
     <Gallery>
       {photos.map(({ id, webformatURL, largeImageURL, tags }) => (
@@ -9,7 +9,8 @@ export const ImageGallery = ({ photos }) => {
           key={id}
           img={webformatURL}
           tag={tags}
-          bigImg={largeImageURL}
+          largeImg={largeImageURL}
+          openModal={openModal}
         />
       ))}
     </Gallery>

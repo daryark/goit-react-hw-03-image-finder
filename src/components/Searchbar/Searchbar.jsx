@@ -1,9 +1,11 @@
 import { Component } from 'react';
+// import { BiSearchAlt } from 'react-icons/bi';
 import {
   Searchbar,
   SearchForm,
   SearchFormBtn,
   SearchFormInput,
+  SearchIcon,
 } from './Searchbar.styled';
 
 export class Form extends Component {
@@ -30,16 +32,17 @@ export class Form extends Component {
     return (
       <Searchbar>
         <SearchForm onSubmit={this.handleSubmit}>
-          <SearchFormBtn type="submit">
-            <span>Search</span>
-          </SearchFormBtn>
           <SearchFormInput
             onChange={this.handleChange}
             type="text"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
+            value={this.state.value}
           />
+          <SearchFormBtn type="submit">
+            <SearchIcon />
+          </SearchFormBtn>
         </SearchForm>
       </Searchbar>
     );

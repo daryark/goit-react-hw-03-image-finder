@@ -7,7 +7,13 @@ export const Loader = () => {
       <Triangle
         height="80"
         width="80"
-        color="blue"
+        color="white"
+        // wrapperStyle={{
+        //   position: 'fixed',
+        //   top: '50%',
+        //   left: '50%',
+        //   transform: 'translate(-50%, -50%)',
+        // }}
         // position="fixed"
         // bottom="50px"
       />

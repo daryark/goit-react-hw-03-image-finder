@@ -1,3 +1,4 @@
+import { BiSearchAlt } from 'react-icons/bi';
 import styled from 'styled-components';
 
 export const Searchbar = styled.header`
@@ -31,10 +32,10 @@ export const SearchForm = styled.form`
 
 export const SearchFormBtn = styled.button`
   display: inline-block;
-  /* width: 48px; */
+  width: 48px;
   height: 48px;
   border: 0;
-  background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
+  /* background-image: url('https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-512.png'); */
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -61,5 +62,12 @@ export const SearchFormInput = styled.input`
   &::placeholder {
     font: inherit;
     font-size: 18px;
+  }
+`;
+export const SearchIcon = styled(BiSearchAlt)`
+  &[style] {
+    display: block;
+    width: 2em;
+    height: 2em;
   }
 `;

@@ -14,5 +14,13 @@ export const getImages = async (value, page) => {
     page,
   };
   const { data } = await axios.get('/', { params });
-  return data;
+  return { hits: getNormalizedData(data), total: data.totalHits };
 };
+
+const getNormalizedData = ({ hits }) =>
+  hits.map(({ id, tag, webformatURL, largeImageURL }) => ({
+    id,
+    tag,
+    webformatURL,
+    largeImageURL,
+  }));

@@ -24,9 +24,7 @@ export class Form extends Component {
     const value = this.state.value.trim().toLowerCase();
     if (!value) return;
 
-    let sameValue;
-    if (this.props.prevValue === value) sameValue = true;
-    this.props.submit(value, sameValue);
+    this.props.submit(value);
     this.setState({ value: '' });
   };
 

@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import React from 'react';
+
+import { getImages as fetchImg } from 'service/image-service';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -9,9 +11,8 @@ import {
   Loader,
   ModalWindow,
   ImageGallery,
-  getImages,
   messageSettings,
-} from 'components/reexport';
+} from 'components';
 import { ToastMessage } from 'components/ToastMessage/ToastMessage.styled';
 
 export class App extends Component {
@@ -26,10 +27,8 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    if (
-      prevState.value !== this.state.value ||
-      prevState.page !== this.state.page
-    ) {
+    const { value, page } = this.state;
+    if (prevState.value !== value || prevState.page !== page) {
       this.getImages();
     }
   }
@@ -39,7 +38,7 @@ export class App extends Component {
       const { value, page, images } = this.state;
       this.setState({ isLoading: true });
 
-      const data = await getImages(value, page);
+      const data = await fetchImg(value, page);
 
       const { hits, total } = data;
 
@@ -47,13 +46,14 @@ export class App extends Component {
         toast('🤷‍♀️ Sorry, no images found by your request', messageSettings);
       }
       this.setState({
-        images: page === 1 ? hits : [...images, ...hits],
+        images: [...images, ...hits],
         total,
+        // error: null,
       });
     } catch (error) {
-      this.setState({
-        error: error.message,
-      });
+      // this.setState({
+      //   error: error.message,
+      // });
       toast.error(`🙆‍♂️ Oops... ${error.message}`, messageSettings);
     } finally {
       this.setState({
@@ -62,16 +62,20 @@ export class App extends Component {
     }
   };
 
-  getValue = (value, sameValue) => {
-    sameValue
-      ? toast(
-          `🤷‍♀️ Hey, you already have '${value}' shown, find something new!`,
-          messageSettings
-        )
-      : this.setState({
-          value,
-          page: 1,
-        });
+  getValue = value => {
+    if (value === this.state.value) {
+      toast(
+        `🤷‍♀️ Hey, you already have '${value}' shown, find something new!`,
+        messageSettings
+      );
+      return;
+    }
+    this.setState({
+      value,
+      page: 1,
+      total: 0,
+      images: [],
+    });
   };
 
   handleChangePage = () => {
@@ -89,7 +93,7 @@ export class App extends Component {
     const limit = total > page * 12;
     return (
       <>
-        <Form submit={this.getValue} prevValue={this.state.value} />
+        <Form submit={this.getValue} />
         <ImageGallery photos={images} openModal={this.toggleModal} />
         {images.length > 0 && limit && (
           <Btn
